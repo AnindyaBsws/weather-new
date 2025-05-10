@@ -1,0 +1,81 @@
+.profile-container {
+    max-width: 500px;
+    margin: 4rem auto;
+    padding: 2rem;
+    border-radius: 16px;
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    animation: fadeSlide 0.5s ease;
+    color: #333;
+  }
+  
+  .profile-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+  }
+  
+  .profile-container input {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .profile-container input:focus {
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(252, 182, 159, 0.4);
+  }
+  
+  .profile-container button {
+    background: #ff7e5f;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    font-size: 1rem;
+  }
+  
+  .profile-container button:hover {
+    background: #ff5e3a;
+    transform: scale(1.03);
+  }
+  
+  /* Animation */
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Tweaks */
+  @media (max-width: 600px) {
+    .profile-container {
+      margin: 2rem 1rem;
+      padding: 1.5rem;
+    }
+  
+    .profile-container h2 {
+      font-size: 1.6rem;
+    }
+  
+    .profile-container input,
+    .profile-container button {
+      font-size: 0.95rem;
+    }
+  }
+  

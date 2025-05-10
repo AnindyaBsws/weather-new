@@ -1,0 +1,89 @@
+.satellite-weather-container {
+    padding: 2rem;
+    min-height: 100vh;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: white;
+    animation: fadeIn 0.5s ease;
+  }
+  
+  .satellite-weather-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  
+  .forecast-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .forecast-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+    text-align: center;
+    animation: slideUp 0.6s ease;
+  }
+  
+  .forecast-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.25);
+  }
+  
+  .forecast-card p {
+    margin: 0.6rem 0;
+    font-size: 1.05rem;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Tweaks */
+  @media (max-width: 768px) {
+    .satellite-weather-container h2 {
+      font-size: 1.6rem;
+    }
+  
+    .forecast-card p {
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .satellite-weather-container {
+      padding: 1rem;
+    }
+  
+    .forecast-list {
+      gap: 1rem;
+    }
+  
+    .forecast-card {
+      padding: 1rem;
+    }
+  }
+  
