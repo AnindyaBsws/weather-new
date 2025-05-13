@@ -11,10 +11,15 @@ import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 
+//SSE import for no-database sensor data showing
+import SSE from 'express-sse';
+
+//dotenv configuration
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+//CORS configuration
 const corsOptions = {
   origin: 'http://localhost:5173',
   credentials: true,
@@ -25,6 +30,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+//Mongo Configuration
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,
   crypto: {
@@ -36,6 +42,7 @@ store.on('error', err => {
   console.log('Mongo Store Error:', err);
 });
 
+//Session Configuration
 const sessionOptions = {
   store,
   secret: process.env.SECRET,
@@ -50,12 +57,14 @@ const sessionOptions = {
 };
 app.use(session(sessionOptions));
 
+//Passport Configuration
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//Auth Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.get('/api', (req, res) => {
@@ -65,6 +74,29 @@ app.get('/api', (req, res) => {
   res.json({ loggedIn: false });
 });
 
+//Sensor Routes
+
+
+//SSE configuration
+    const sse = new SSE();
+    let latestData = {}; // Store the latest sensor data in memory
+
+    // Endpoint for ESP8266 to send sensor data
+    app.post('/api/sensor-data', (req, res) => {
+      latestData = req.body; // Update with new sensor data
+      sse.send(latestData);  // Send to all connected clients
+      res.sendStatus(200);
+    });
+
+    // SSE endpoint for the frontend to connect to
+    app.get('/stream', sse.init);
+
+    //loacal server for sensor data
+    app.listen(3000, () => {
+    console.log('Server running on port 3000');
+    });
+
+//MongoDB connected Message
 connectDB().then(() => {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
